@@ -8,7 +8,11 @@
 
     // NOTE: If you are grabbing this code, make sure you also copy the camera permission from /Properties/AndroidManifest.xml.
     //       <uses-permission android:name="android.permission.CAMERA" />
-    [Activity(Label = "Flashlight", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(
+        Label = "Flashlight",
+        MainLauncher = true,
+        Icon = "@drawable/icon",
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class FlashlightActivity : Activity, ISurfaceHolderCallback {
         protected Camera _Camera = null;
         protected IList<string> _CameraSupportedFlashModes = null;
@@ -17,20 +21,20 @@
         protected const string FlashlightOnMode = Camera.Parameters.FlashModeTorch;
         protected const string FlashlightOffMode = Camera.Parameters.FlashModeOff;
         private bool IsPreviewing = false;
+        protected ImageView _FlashIcon = null;
 
         protected override void OnCreate(Bundle bundle) {
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            StartCamera();
             _SurfaceView = FindViewById<SurfaceView>(Resource.Id.SurfaceView);
             _SurfaceHolder = _SurfaceView.Holder;
             _SurfaceHolder.AddCallback(this);
             _SurfaceHolder.SetType(SurfaceType.PushBuffers);
 
-            ImageView flashlightToggleButton = FindViewById<ImageView>(Resource.Id.FlashTorch);
-            flashlightToggleButton.Click += (sender, args) => {
+            _FlashIcon = FindViewById<ImageView>(Resource.Id.FlashIcon);
+            _FlashIcon.Click += (sender, args) => {
                 if (FlashlightOnMode != GetCameraFlashMode()) {
                     TurnFlashOn();
                 }
@@ -38,6 +42,7 @@
                     TurnFlashOff();
                 }
             };
+            TurnFlashOn();
         }
         protected override void OnStop() {
             StopCamera();
@@ -114,10 +119,12 @@
         protected void TurnFlashOn() {
             StartPreviewing();
             SetCameraFlashMode(FlashlightOnMode);
+            _FlashIcon.SetImageResource(Resource.Drawable.PowerIconWhite);
         }
         protected void TurnFlashOff() {
             StopPreviewing();
             SetCameraFlashMode(FlashlightOffMode);
+            _FlashIcon.SetImageResource(Resource.Drawable.PowerIconGray);
         }
     }
 }
