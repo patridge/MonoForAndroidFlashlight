@@ -62,7 +62,9 @@
         }
         public void SurfaceChanged(ISurfaceHolder holder, Android.Graphics.Format format, int width, int height) { }
         public void SurfaceCreated(ISurfaceHolder holder) {
-            _Camera.SetPreviewDisplay(holder);
+			if (_Camera != null) {
+				_Camera.SetPreviewDisplay (holder);
+			}
         }
         public void SurfaceDestroyed(ISurfaceHolder holder) { }
 
