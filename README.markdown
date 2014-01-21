@@ -16,4 +16,5 @@ My new Samsung Galaxy Nexus didn't come with a flashlight app like the HTC Incre
 ###References
 
 Power logo used for this app was found [via The Noun Project](http://thenounproject.com/noun/power/#icon-No94) (under public domain).
-Lightswitch logo used for this app was found [via The Noun Project](http://thenounproject.com/noun/light-switch/#icon-No2235) (no rights reserved)
+
+Lightswitch logo used for this app was found [via The Noun Project](http://thenounproject.com/noun/light-switch/#icon-No2235) (under public domain).
